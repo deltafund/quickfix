@@ -15,7 +15,10 @@
 
 package quickfix
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
 	for {
@@ -24,6 +27,7 @@ func writeLoop(connection io.Writer, messageOut chan []byte, log Log) {
 			return
 		}
 
+		fmt.Println("send msg", len(msg))
 		if _, err := connection.Write(msg); err != nil {
 			log.OnEvent(err.Error())
 		}

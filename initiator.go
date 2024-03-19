@@ -18,12 +18,18 @@ package quickfix
 import (
 	"bufio"
 	"crypto/tls"
+	"net"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
 	"golang.org/x/net/proxy"
 )
+
+// https://github.com/torvalds/linux/blob/master/include/uapi/linux/in.h#L38
+// https://github.com/torvalds/linux/blob/master/include/uapi/linux/tcp.h#L92
+// Más -> https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/socket.h
 
 // Initiator initiates connections and processes messages for all sessions.
 type Initiator struct {
@@ -166,6 +172,28 @@ func (i *Initiator) handleConnection(session *session, tlsConfig *tls.Config, di
 			session.log.OnEventf("Failed to connect: %v", err)
 			goto reconnect
 		} else if tlsConfig != nil {
+			tcpConn, _ := netConn.(*net.TCPConn)
+
+			sockf, err := tcpConn.File() // Get the underlying file
+			if err != nil {
+				session.log.OnEventf("Error getting file descriptor:", err)
+				goto reconnect
+			}
+			defer sockf.Close()
+			sockfd := int(sockf.Fd())
+
+			err = syscall.SetsockoptInt(sockfd, syscall.IPPROTO_TCP, syscall.TCP_MAXSEG, 307)
+			maxSeg, _ := syscall.GetsockoptInt(sockfd, syscall.IPPROTO_TCP, syscall.TCP_MAXSEG)
+			session.log.OnEventf("TCP_MAXSEG is %d %v\n", maxSeg, err)
+			// int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
+			//err = unix.SetsockoptInt(sockfd, unix.IPPROTO_TCP, unix.TCP_NODELAY, 1)
+			//nodelay, err := unix.GetsockoptInt(sockfd, unix.IPPROTO_TCP, unix.TCP_NODELAY)
+			//session.log.OnEventf("TCP_NODELAY is %d %v\n", nodelay, err)
+
+			err = syscall.SetsockoptInt(sockfd, syscall.IPPROTO_TCP, syscall.SO_OOBINLINE, 1)
+			urgentFlag, _ := syscall.GetsockoptInt(sockfd, syscall.IPPROTO_TCP, syscall.SO_OOBINLINE)
+			session.log.OnEventf("SO_OOBINLINE is %d %v\n", urgentFlag, err)
+
 			// Unless InsecureSkipVerify is true, server name config is required for TLS
 			// to verify the received certificate
 			if !tlsConfig.InsecureSkipVerify && len(tlsConfig.ServerName) == 0 {

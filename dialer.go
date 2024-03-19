@@ -26,6 +26,23 @@ import (
 )
 
 func loadDialerConfig(settings *SessionSettings) (dialer proxy.Dialer, err error) {
+	// stdDialer := &net.Dialer{Control: func(network, address string, c syscall.RawConn) error {
+	// 	return c.Control(func(fd uintptr) {
+	// 		// Set TCP_MSS option (Maximum Segment Size) to 207
+	// 		if err := syscall.SetsockoptInt(int(fd), syscall.SOL_SOCKET, syscall.SO_OOBINLINE, 1); err != nil {
+	// 			fmt.Printf("Error setting TCP_MSS: %v\n", err)
+	// 		}
+
+	// 		// Set TCP_MAXSEG option (Maximum Segment Size) to 207
+	// 		if err := syscall.SetsockoptInt(int(fd), syscall.IPPROTO_TCP, syscall.TCP_MAXSEG, 207); err != nil {
+	// 			fmt.Printf("Error setting TCP_MAXSEG: %v\n", err)
+	// 		}
+	// 	})
+	// },
+	// }
+
+	// fmt.Println("CUSTOM DAIALER!!!")
+
 	stdDialer := &net.Dialer{}
 	if settings.HasSetting(config.SocketTimeout) {
 		timeout, err := settings.DurationSetting(config.SocketTimeout)

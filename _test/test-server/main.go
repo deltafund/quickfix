@@ -13,13 +13,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/config"
-	field "github.com/quickfixgo/quickfix/gen/field"
-	tag "github.com/quickfixgo/quickfix/gen/tag"
-	filelog "github.com/quickfixgo/quickfix/log/file"
-	"github.com/quickfixgo/quickfix/store/file"
-	"github.com/quickfixgo/quickfix/store/mongo"
+	"github.com/deltafund/quickfix"
+	"github.com/deltafund/quickfix/config"
+	field "github.com/deltafund/quickfix/gen/field"
+	tag "github.com/deltafund/quickfix/gen/tag"
+	filelog "github.com/deltafund/quickfix/log/file"
+	"github.com/deltafund/quickfix/store/file"
+	"github.com/deltafund/quickfix/store/mongo"
 )
 
 var router *quickfix.MessageRouter = quickfix.NewMessageRouter()

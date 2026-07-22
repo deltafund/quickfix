@@ -100,7 +100,7 @@ The message store types external to a quickfix-go application have been refactor
 
 MONGO
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/deltafund/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -108,8 +108,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewMongoStoreFactory(appSetti
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/mongo"
+  "github.com/deltafund/quickfix"
+  "github.com/deltafund/quickfix/store/mongo"
 )
 
 ...
@@ -118,7 +118,7 @@ acceptor, err = quickfix.NewAcceptor(app, mongo.NewStoreFactory(appSettings), ap
 
 FILE
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/deltafund/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -126,8 +126,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewFileStoreFactory(appSettin
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/file"
+  "github.com/deltafund/quickfix"
+  "github.com/deltafund/quickfix/store/file"
 )
 
 ...
@@ -137,7 +137,7 @@ acceptor, err = quickfix.NewAcceptor(app, file.NewStoreFactory(appSettings), app
 SQL
 
 ```go
-import "github.com/quickfixgo/quickfix"
+import "github.com/deltafund/quickfix"
 
 ...
 acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSettings), appSettings, fileLogFactory)
@@ -145,8 +145,8 @@ acceptor, err = quickfix.NewAcceptor(app, quickfix.NewSQLStoreFactory(appSetting
 becomes 
 ```go
 import (
-  "github.com/quickfixgo/quickfix"
-  "github.com/quickfixgo/quickfix/store/sql"
+  "github.com/deltafund/quickfix"
+  "github.com/deltafund/quickfix/store/sql"
 )
 
 ...

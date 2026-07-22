@@ -22,8 +22,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/config"
+	"github.com/deltafund/quickfix"
+	"github.com/deltafund/quickfix/config"
 )
 
 type sqlLogFactory struct {

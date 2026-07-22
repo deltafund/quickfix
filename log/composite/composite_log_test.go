@@ -24,12 +24,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/deltafund/quickfix"
+	"github.com/deltafund/quickfix/log/file"
+	"github.com/deltafund/quickfix/log/mongo"
+	"github.com/deltafund/quickfix/log/screen"
+	"github.com/deltafund/quickfix/log/sql"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/quickfixgo/quickfix"
-	"github.com/quickfixgo/quickfix/log/file"
-	"github.com/quickfixgo/quickfix/log/mongo"
-	"github.com/quickfixgo/quickfix/log/screen"
-	"github.com/quickfixgo/quickfix/log/sql"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 )

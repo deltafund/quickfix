@@ -35,7 +35,7 @@ See v0.9.0 release notes [here](https://github.com/quickfixgo/quickfix/releases/
 With [Go module](https://github.com/golang/go/wiki/Modules) support, simply add the following import
 
 ```
-import "github.com/quickfixgo/quickfix"
+import "github.com/deltafund/quickfix"
 ```
 
 to your code, and then `go [build|run|test]` will automatically fetch the necessary dependencies.
